@@ -1,0 +1,14 @@
+home // if not logged in, then redirect to login page
+
+login
+user // show and change user info
+
+lectures
+lectures?subject=건축 ...  // 검색 필터 기능
+cancel
+timetable
+
+chat // realtime chat with ajax
+
+admin
+statistics
