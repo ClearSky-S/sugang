@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import AbstractUser
 # Create your models here.
 from django.template.defaultfilters import default
 
@@ -9,6 +9,8 @@ from django.template.defaultfilters import default
 # Tier 2 Model: 교강사, 강의실
 # Tier 3 Model: 학생, 수업
 # Tier 4 Model: 성적, 수업시간, +auth_user
+
+
 
 
 # ----------- Tier 1 ---------------
@@ -70,7 +72,7 @@ class Room(models.Model):
 # Tier 3 Model: 학생, 수업
 
 class Student(models.Model):
-    # csv 라이브러리로 파싱 후수동 셋업 필요
+    # csv 라이브러리로 파싱 후 수동 셋업 필요
     """
     student_id,password,name,sex,major_id,lecturer_id,year
     2018003125,125125125,정남아,female,44,2001032011,4
@@ -141,3 +143,5 @@ class Time(models.Model):
     begin = models.TimeField()
     end = models.TimeField()
 
+class User(AbstractUser):
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank=True)
