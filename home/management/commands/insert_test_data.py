@@ -59,14 +59,14 @@ class Command(BaseCommand):
                 course.credit = row[2]
                 course.save()
 
-                # ----------- Tier 2 ---------------
-                # Tier 2 Model: 교강사, 강의실
-                print("Tier 2 Model: 교강사, 강의실")
+        # ----------- Tier 2 ---------------
+        # Tier 2 Model: 교강사, 강의실
+        print("Tier 2 Model: 교강사, 강의실")
 
-                print("insert lecturer.csv")
-                with open('test_data/csv/lecturer.csv', 'r') as csvfile:
-                    r = csv.reader(csvfile)
-                    for row in r:
+        print("insert lecturer.csv")
+        with open('test_data/csv/lecturer.csv', 'r') as csvfile:
+            r = csv.reader(csvfile)
+            for row in r:
                         if row[0] == 'lecturer_id':
                             continue
                         lecturer = Lecturer()
@@ -79,8 +79,8 @@ class Command(BaseCommand):
                         lecturer.major_id = row[2]
                         lecturer.save()
 
-                print("insert room.csv")
-                with open('test_data/csv/room.csv', 'r') as csvfile:
+        print("insert room.csv")
+        with open('test_data/csv/room.csv', 'r') as csvfile:
                     r = csv.reader(csvfile)
                     for row in r:
                         if row[0] == 'room_id':
@@ -95,13 +95,13 @@ class Command(BaseCommand):
                         room.occupancy = row[2]
                         room.save()
 
-                # ----------- Tier 3 ---------------
-                # Tier 3 Model: 학생, 수업
+        # ----------- Tier 3 ---------------
+        # Tier 3 Model: 학생, 수업
 
-                print("Tier 3 Model: 학생, 수업")
+        print("Tier 3 Model: 학생, 수업")
 
-                print("insert student.csv")
-                with open('test_data/csv/student.csv', 'r') as csvfile:
+        print("insert student.csv")
+        with open('test_data/csv/student.csv', 'r') as csvfile:
                     r = csv.reader(csvfile)
                     for row in r:
                         if row[0] == 'student_id':
@@ -112,7 +112,17 @@ class Command(BaseCommand):
                         2018003125,125125125,정남아,female,44,2001032011,4
                         """
                         student.student_id = row[0]
+                        student.name = row[2]
+                        student.sex = row[3]
+                        student.major_id = row[4]
+                        student.lecturer_id = row[5]
+                        student.year = row[6]
                         student.save()
                         # Auth
-
+                        user = User()
+                        user.username = row[0]
+                        user.student_id = row[0]
+                        user.first_name = row[2]
+                        user.set_password(row[1])
+                        user.save()
 

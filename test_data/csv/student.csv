@@ -1,182 +1,21 @@
-[
-  {
-    "student_id": 2018003125,
-    "password": 125125125,
-    "name": "정남아",
-    "sex": "female",
-    "major_id": 44,
-    "lecturer_id": 2001032011,
-    "year": 4
-  },
-  {
-    "student_id": 2018004052,
-    "password": "39nnf2",
-    "name": "김관유",
-    "sex": "male",
-    "major_id": 4,
-    "lecturer_id": 2001032064,
-    "year": 3
-  },
-  {
-    "student_id": 2019499349,
-    "password": "2bn4",
-    "name": "이현주",
-    "sex": "female",
-    "major_id": 5,
-    "lecturer_id": 2001032031,
-    "year": 4
-  },
-  {
-    "student_id": 2020004533,
-    "password": 35234,
-    "name": "한준희",
-    "sex": "male",
-    "major_id": 3,
-    "lecturer_id": 2001032070,
-    "year": 3
-  },
-  {
-    "student_id": 2020040404,
-    "password": "x17171771",
-    "name": "김다미",
-    "sex": "female",
-    "major_id": 15,
-    "lecturer_id": 2001032068,
-    "year": 3
-  },
-  {
-    "student_id": 2020004003,
-    "password": "banila",
-    "name": "김동관",
-    "sex": "male",
-    "major_id": 33,
-    "lecturer_id": 2001032030,
-    "year": 3
-  },
-  {
-    "student_id": 2020004203,
-    "password": "qwe123",
-    "name": "주정현",
-    "sex": "male",
-    "major_id": 2,
-    "lecturer_id": 2001021002,
-    "year": 3
-  },
-  {
-    "student_id": 2021030303,
-    "password": "arandomkey",
-    "name": "최다비드",
-    "sex": "male",
-    "major_id": 34,
-    "lecturer_id": 2001032031,
-    "year": 2
-  },
-  {
-    "student_id": 2020394929,
-    "password": "3425nn5",
-    "name": "이지은",
-    "sex": "female",
-    "major_id": 1,
-    "lecturer_id": 2001032085,
-    "year": 3
-  },
-  {
-    "student_id": 2021001445,
-    "password": 7007,
-    "name": "노선영",
-    "sex": "female",
-    "major_id": 4,
-    "lecturer_id": 2001032010,
-    "year": 2
-  },
-  {
-    "student_id": 2021004004,
-    "password": "foxfoxfox",
-    "name": "윤준영",
-    "sex": "male",
-    "major_id": 22,
-    "lecturer_id": 2001032004,
-    "year": 2
-  },
-  {
-    "student_id": 2021004394,
-    "password": "goodboy",
-    "name": "윤인욱",
-    "sex": "male",
-    "major_id": 1,
-    "lecturer_id": 2001032004,
-    "year": 2
-  },
-  {
-    "student_id": 2021030128,
-    "password": "food",
-    "name": "윤지형",
-    "sex": "male",
-    "major_id": 44,
-    "lecturer_id": 2001032078,
-    "year": 2
-  },
-  {
-    "student_id": 2021040051,
-    "password": "zeroone234",
-    "name": "최아랑",
-    "sex": "female",
-    "major_id": 19,
-    "lecturer_id": 2001032078,
-    "year": 2
-  },
-  {
-    "student_id": 2022001303,
-    "password": 192939,
-    "name": "김다현",
-    "sex": "female",
-    "major_id": 3,
-    "lecturer_id": 2001032009,
-    "year": 1
-  },
-  {
-    "student_id": 2022002331,
-    "password": "wer234",
-    "name": "이상덕",
-    "sex": "male",
-    "major_id": 2,
-    "lecturer_id": 2001032008,
-    "year": 1
-  },
-  {
-    "student_id": 2022005004,
-    "password": "hexahed",
-    "name": "장두호",
-    "sex": "male",
-    "major_id": 5,
-    "lecturer_id": 2001032081,
-    "year": 1
-  },
-  {
-    "student_id": 2022019493,
-    "password": "zerozero",
-    "name": "임지훈",
-    "sex": "male",
-    "major_id": 17,
-    "lecturer_id": 2001032003,
-    "year": 1
-  },
-  {
-    "student_id": 2022040404,
-    "password": "donkey",
-    "name": "권지현",
-    "sex": "female",
-    "major_id": 22,
-    "lecturer_id": 2001032053,
-    "year": 1
-  },
-  {
-    "student_id": 2022505050,
-    "password": "hellobaby",
-    "name": "권희조",
-    "sex": "female",
-    "major_id": 44,
-    "lecturer_id": 2001032078,
-    "year": 1
-  }
-]
+student_id,password,name,sex,major_id,lecturer_id,year
+2018003125,125125125,정남아,female,44,2001032011,4
+2018004052,39nnf2,김관유,male,4,2001032064,3
+2019499349,2bn4,이현주,female,5,2001032031,4
+2020004533,35234,한준희, male,3,2001032070,3
+2020040404,x17171771,김다미,female,15,2001032068,3
+2020004003,banila,김동관,male,33,2001032030,3
+2020004203,qwe123,주정현,male,2,2001021002,3
+2021030303,arandomkey,최다비드,male,34,2001032031,2
+2020394929,3425nn5,이지은,female,1,2001032085,3
+2021001445,7007,노선영,female,4,2001032010,2
+2021004004,foxfoxfox,윤준영,male,22,2001032004,2
+2021004394,goodboy,윤인욱,male,1,2001032004,2
+2021030128,food,윤지형,male,44,2001032078,2
+2021040051,zeroone234,최아랑,female,19,2001032078,2
+2022001303,192939,김다현,female,3,2001032009,1
+2022002331,wer234,이상덕,male,2,2001032008,1
+2022005004,hexahed,장두호,male,5,2001032081,1
+2022019493,zerozero,임지훈,male,17,2001032003,1
+2022040404,donkey,권지현,female,22,2001032053,1
+2022505050,hellobaby,권희조,female,44,2001032078,1
