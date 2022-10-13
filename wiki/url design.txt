@@ -1,10 +1,14 @@
-home // if not logged in, then redirect to login page
+// 실제 구현은 sugang/urls.py와 home/urls.py 에 있음
+
+null: home // if not logged in, then redirect to login page
 
 login
 user // show and change user info
 
 lectures
 lectures?subject=건축 ...  // 검색 필터 기능
+enroll/<number> // post method
+mylectures
 cancel
 timetable
 
