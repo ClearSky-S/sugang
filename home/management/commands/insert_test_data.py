@@ -67,22 +67,22 @@ class Command(BaseCommand):
         with open('test_data/csv/lecturer.csv', 'r') as csvfile:
             r = csv.reader(csvfile)
             for row in r:
-                        if row[0] == 'lecturer_id':
-                            continue
-                        lecturer = Lecturer()
-                        """
-                        lecturer_id,name,major_id
-                        2001001001,조병완,1
-                        """
-                        lecturer.lecturer_id = row[0]
-                        lecturer.name = row[1]
-                        lecturer.major_id = row[2]
-                        lecturer.save()
+                if row[0] == 'lecturer_id':
+                    continue
+                lecturer = Lecturer()
+                """
+                lecturer_id,name,major_id
+                2001001001,조병완,1
+                """
+                lecturer.lecturer_id = row[0]
+                lecturer.name = row[1]
+                lecturer.major_id = row[2]
+                lecturer.save()
 
         print("insert room.csv")
         with open('test_data/csv/room.csv', 'r') as csvfile:
-                    r = csv.reader(csvfile)
-                    for row in r:
+            r = csv.reader(csvfile)
+            for row in r:
                         if row[0] == 'room_id':
                             continue
                         room = Room()
@@ -102,8 +102,8 @@ class Command(BaseCommand):
 
         print("insert student.csv")
         with open('test_data/csv/student.csv', 'r') as csvfile:
-                    r = csv.reader(csvfile)
-                    for row in r:
+            r = csv.reader(csvfile)
+            for row in r:
                         if row[0] == 'student_id':
                             continue
                         student = Student()
