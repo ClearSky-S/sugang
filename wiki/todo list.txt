@@ -1,0 +1,5 @@
+DB
+login
+home
+lectures
+mylectures
