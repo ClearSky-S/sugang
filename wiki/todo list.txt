@@ -1,4 +1,5 @@
 DB
+admin page
 login
 home
 lectures
