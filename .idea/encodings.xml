@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/csv/building.csv" charset="EUC-KR" />
-    <file url="file://$PROJECT_DIR$/csv/class.csv" charset="EUC-KR" />
-    <file url="file://$PROJECT_DIR$/csv/course.csv" charset="EUC-KR" />
-    <file url="file://$PROJECT_DIR$/csv/lecturer.csv" charset="EUC-KR" />
-    <file url="file://$PROJECT_DIR$/csv/major.csv" charset="EUC-KR" />
-    <file url="file://$PROJECT_DIR$/csv/student.csv" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/test_data/csv/building.csv" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/test_data/csv/class.csv" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/test_data/csv/course.csv" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/test_data/csv/lecturer.csv" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/test_data/csv/major.csv" charset="EUC-KR" />
+    <file url="file://$PROJECT_DIR$/test_data/csv/student.csv" charset="EUC-KR" />
   </component>
 </project>

@@ -10,7 +10,9 @@ from django.template.defaultfilters import default
 # Tier 3 Model: 학생, 수업
 # Tier 4 Model: 성적, 수업시간, +auth_user
 
+
 # ----------- Tier 1 ---------------
+# Tier 1 Model: 전공, 건물, 과목
 
 class Major(models.Model):
     """
@@ -37,11 +39,49 @@ class Course(models.Model):
     course_id,name,credit
     CIE3022,철근콘크리트구조설계,3
     """
-    course_id = models.IntegerField(primary_key=True)
+    course_id = models.CharField(primary_key=True, max_length=20)
     name = models.CharField(max_length=100)
     credit = models.IntegerField()
 
+
 # ----------- Tier 2 ---------------
+# Tier 2 Model: 교강사, 강의실
+
+class Lecturer(models.Model):
+    """
+    lecturer_id,name,major_id
+    2001001001,조병완,1
+    """
+    lecturer_id = models.IntegerField(primary_key=True)
+    name = models.CharField(max_length=100)
+    major = models.ForeignKey(Major, on_delete=models.CASCADE)
+
+
+class Room(models.Model):
+    """
+    room_id,building_id,occupancy
+    1,305,140
+    """
+    room_id = models.IntegerField(primary_key=True)
+    building = models.ForeignKey(Building, on_delete=models.CASCADE)
+    occupancy = models.IntegerField()
+
+# ----------- Tier 3 ---------------
+# Tier 3 Model: 학생, 수업
+
+class Student(models.Model):
+    # csv 라이브러리로 파싱 후수동 셋업 필요
+    """
+    student_id,password,name,sex,major_id,lecturer_id,year
+    2018003125,125125125,정남아,female,44,2001032011,4
+    """
+    student_id = models.IntegerField(primary_key=True)
+    # password : 보안상 auth_user 테이블로 분리함
+    name = models.CharField(max_length=100)
+    sex = models.CharField(max_length=20)
+    major = models.ForeignKey(Major, on_delete=models.CASCADE)
+    lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
+    year = models.IntegerField()
 
 class Class(models.Model):
     """
@@ -50,16 +90,54 @@ class Class(models.Model):
     """
     class_id = models.IntegerField(primary_key=True)
     class_no = models.IntegerField()
-    # course_id: FK
-    # name = models.CharField(max_length=100) : DB 스키마에서 삭제 가능 과목에 이미 있음
-    # major_id: FK, DB 스키마에서 화살표 빠진거 보충 필요
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    # name = models.CharField(max_length=100) : DB 스키마에서 삭제 가능 Course에 이미 있음
+
+    # major_id: # FK, DB 스키마에서 화살표 빠진거 보충 필요
+    major = models.ForeignKey(Major, on_delete=models.CASCADE)
+
     year = models.IntegerField()
-    # credit = models.IntegerField() :  DB 스키마에서 삭제 가능 과목에 이미 있음
-    # lecturer_id: FK
+    # credit = models.IntegerField() :  DB 스키마에서 삭제 가능 Course에 이미 있음
+    lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     person_max = models.IntegerField()
     opened = models.IntegerField()
     enrolled = models.IntegerField(default=0) # 추가 가능
-    # room_id: FK
+    room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
-# ----------- Tier 3 ---------------
+
 # ----------- Tier 4 ---------------
+# Tier 4 Model: 성적, 수업시간, +auth_user(장고 기본 auth DB 이용)
+
+class Credits(models.Model):
+    """
+    credits_id,student_id,course_id,year,grade
+    1,2018003125,GEN5026,2022,B0
+    """
+    credits_id = models.IntegerField(primary_key=True)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    year = models.IntegerField()
+    grade = models.CharField(max_length=2)
+
+
+class Time(models.Model):
+    # csv 라이브러리로 파싱 후 수동 셋업 필요
+    """
+    input:
+    time_id,class_id,period,begin,end
+    1,8831,1,1900-01-02T05:30:00.000Z,1900-01-02T07:00:00.000Z
+    """
+    """
+    DB:
+    time_id,class_id,period,day,begin,end
+    1,8831,1,5,05:30:00,05:30:00
+    """
+    time_id = models.IntegerField(primary_key=True)
+    classInfo = models.ForeignKey(Class, on_delete=models.CASCADE)  # class 는 예약어여서 사용할 수 없음
+    period = models.IntegerField()
+    # begin = models.DateTimeField() 스키마 수정 필요
+    # end = models.DateTimeField() 스키마 수정 필요
+    day = models.IntegerField()
+    begin = models.TimeField()
+    end = models.TimeField()
+

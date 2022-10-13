@@ -1,0 +1,1 @@
+python manage.py loaddata home/test_data/json/major.json
