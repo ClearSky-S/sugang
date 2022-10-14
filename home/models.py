@@ -87,7 +87,7 @@ class Student(models.Model):
 
 class Class(models.Model):
     """
-    class_id,class_no,course_id,name,major_id,year,credit,lecturer_id,person_max,opened,room_id
+    class_id,class_no,course_id,(name),(major_id),year,(credit),lecturer_id,person_max,opened,room_id
     8831,10003,CIE3022,철근콘크리트구조설계,1,1,3,2001001001,3,2022,169
     """
     class_id = models.IntegerField(primary_key=True)
@@ -103,7 +103,7 @@ class Class(models.Model):
     lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     person_max = models.IntegerField()
     opened = models.IntegerField()
-    enrolled = models.IntegerField(default=0) # 추가 가능
+    enrolled = models.ManyToManyField("Student")
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
 
@@ -125,23 +125,23 @@ class Credits(models.Model):
 class Time(models.Model):
     # csv 라이브러리로 파싱 후 수동 셋업 필요
     """
-    input:
+    csv:
     time_id,class_id,period,begin,end
     1,8831,1,1900-01-02T05:30:00.000Z,1900-01-02T07:00:00.000Z
     """
     """
     DB:
     time_id,class_id,period,day,begin,end
-    1,8831,1,5,05:30:00,05:30:00
+    1,8831,1,5,05:30,05:30
     """
     time_id = models.IntegerField(primary_key=True)
     classInfo = models.ForeignKey(Class, on_delete=models.CASCADE)  # class 는 예약어여서 사용할 수 없음
     period = models.IntegerField()
     # begin = models.DateTimeField() 스키마 수정 필요
     # end = models.DateTimeField() 스키마 수정 필요
-    day = models.IntegerField()
-    begin = models.TimeField()
-    end = models.TimeField()
+    day = models.IntegerField(null=True, blank=True)
+    begin = models.TimeField(null=True, blank=True)
+    end = models.TimeField(null=True, blank=True)
 
 class User(AbstractUser):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank=True)
