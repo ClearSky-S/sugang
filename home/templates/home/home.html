@@ -1,8 +1,11 @@
 {% extends 'home/base.html' %}
 {% load static %}
 {% block content %}
+<div class="container">
 {% for classInfo in classInfoList %}
     <div>{{ classInfo }}</div>
 {% endfor %}
+</div>
+
 
 {% endblock %}

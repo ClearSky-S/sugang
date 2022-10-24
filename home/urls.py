@@ -1,11 +1,12 @@
 from django.urls import path
-
+from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
     path('', views.home, name='home'),  # 메인페이지, 로그인 X일 경우 로그인 페이지로 리다이렉트 됨
 
-    path('login/', views.home, name='login'), # 로그인
+    path('login/', auth_views.LoginView.as_view(template_name='home/login.html'), name='login'), # 로그인
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('user/', views.home, name='user'),  # 사용자 정보 조회 및 수정
 
     path('lectures/', views.home, name='lectures'),  # 강의 목록 조회 및 수강신청
