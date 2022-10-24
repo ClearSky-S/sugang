@@ -1,5 +1,8 @@
 {% extends 'home/base.html' %}
 {% load static %}
 {% block content %}
+{% for classInfo in classInfoList %}
+    <div>{{ classInfo }}</div>
+{% endfor %}
 
 {% endblock %}
