@@ -23,6 +23,8 @@ class Major(models.Model):
     """
     major_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
+    def __str__(self):
+        return self.name
 
 
 class Building(models.Model):
@@ -34,6 +36,8 @@ class Building(models.Model):
     name = models.CharField(max_length=100)
     admin = models.CharField(max_length=100)
     rooms = models.IntegerField()
+    def __str__(self):
+        return self.name
 
 
 class Course(models.Model):
@@ -44,6 +48,8 @@ class Course(models.Model):
     course_id = models.CharField(primary_key=True, max_length=20)
     name = models.CharField(max_length=100)
     credit = models.IntegerField()
+    def __str__(self):
+        return self.name
 
 
 # ----------- Tier 2 ---------------
@@ -57,6 +63,8 @@ class Lecturer(models.Model):
     lecturer_id = models.IntegerField(primary_key=True)
     name = models.CharField(max_length=100)
     major = models.ForeignKey(Major, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
 
 
 class Room(models.Model):
@@ -67,7 +75,8 @@ class Room(models.Model):
     room_id = models.IntegerField(primary_key=True)
     building = models.ForeignKey(Building, on_delete=models.CASCADE)
     occupancy = models.IntegerField()
-
+    def __str__(self):
+        return str(self.building) + str(self.room_id)
 # ----------- Tier 3 ---------------
 # Tier 3 Model: 학생, 수업
 
@@ -84,6 +93,8 @@ class Student(models.Model):
     major = models.ForeignKey(Major, on_delete=models.CASCADE)
     lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     year = models.IntegerField()
+    def __str__(self):
+        return self.name + " / " + str(self.student_id)
 
 class Class(models.Model):
     """
@@ -103,9 +114,10 @@ class Class(models.Model):
     lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     person_max = models.IntegerField()
     opened = models.IntegerField()
-    enrolled = models.ManyToManyField("Student")
+    enrolled = models.ManyToManyField("Student", null=True, blank=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
-
+    def __str__(self):
+        return str(self.course) + " / " + str(self.lecturer)
 
 # ----------- Tier 4 ---------------
 # Tier 4 Model: 성적, 수업시간, +auth_user(장고 기본 auth DB 이용)
