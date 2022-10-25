@@ -1,0 +1,77 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        {#        {% for classInfo in classInfoList %}#}
+        {#            <div>{{ classInfo }}</div>#}
+        {#        {% endfor %}#}
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>수업번호</th>
+                        <th>강좌</th>
+                        <th>강의자</th>
+                        <th>상세정보</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for classInfo in classInfoList %}
+                        <tr>
+                            <td>{{ classInfo.class_id }}</td>
+                            <td>{{ classInfo.course.name }}</td>
+                            <td>{{ classInfo.lecturer }}</td>
+                            <td class="py-1"><a class="btn btn-primary my-0 py-0 px-1" href="/lectures/{{ classInfo.class_id }}">보기</a></td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div>
+            <!-- 페이징처리 시작 -->
+            <ul class="pagination justify-content-center">
+                <!-- 이전페이지 -->
+                {% if classInfoList.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ classInfoList.previous_page_number }}">이전</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">이전</a>
+                    </li>
+                {% endif %}
+                <!-- 페이지리스트 -->
+                {% for page_number in classInfoList.paginator.page_range %}
+                    {% if page_number >= classInfoList.number|add:-5 and page_number <= classInfoList.number|add:5 %}
+                    {% if page_number == classInfoList.number %}
+                        <li class="page-item active" aria-current="page">
+                            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a>
+                        </li>
+                    {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <!-- 다음페이지 -->
+                {% if classInfoList.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ classInfoList.next_page_number }}">다음</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled">
+                        <a class="page-link" tabindex="-1" aria-disabled="true" href="#">다음</a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- 페이징처리 끝 -->
+        </div>
+    </div>
+
+
+{% endblock %}

@@ -9,7 +9,9 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('user/', views.home, name='user'),  # 사용자 정보 조회 및 수정
 
-    path('lectures/', views.home, name='lectures'),  # 강의 목록 조회 및 수강신청
+    path('lectures/', views.lectures, name='lectures'),  # 강의 목록 조회 및 수강신청
+    path('lectures/<int:lecture_id>', views.lectureDetail, name='lectureDetail'),  # 강의 정보 및 신청
+
     path('enroll/<int:lecture_id>/', views.home, name='enroll'),  # 강의 수강 신청 Post method 만 허용
     path('mylectures/', views.home, name='mylectures'),  # 신청한 강의 확인
     path('timetable/', views.home, name='timetable'),  # 시간표 확인

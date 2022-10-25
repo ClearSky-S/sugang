@@ -114,7 +114,7 @@ class Class(models.Model):
     lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     person_max = models.IntegerField()
     opened = models.IntegerField()
-    enrolled = models.ManyToManyField("Student", blank=True)
+    enrolled = models.ManyToManyField(Student, blank=True)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     def __str__(self):
         return str(self.course) + " / " + str(self.lecturer)
@@ -157,3 +157,5 @@ class Time(models.Model):
 
 class User(AbstractUser):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank=True)
+
+
