@@ -134,7 +134,8 @@ class Credits(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     year = models.IntegerField()
     grade = models.CharField(max_length=2)
-
+    def __str__(self):
+        return str(self.course) + " / " + str(self.student)
 
 class Time(models.Model):
     # csv 라이브러리로 파싱 후 수동 셋업 필요
