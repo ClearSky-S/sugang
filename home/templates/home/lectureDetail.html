@@ -65,6 +65,18 @@
                     <button type="submit" class="btn btn-primary">신청</button>
                     </form>
                 {% endif %}
+                {% if isWishClass %}
+                    <form method="POST" action="/wishlist/{{classInfo.class_id}}/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger my-2">희망삭제</button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="/wishlist/{{classInfo.class_id}}/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary my-2">희망신청</button>
+                    </form>
+                {% endif %}
+
             </div>
         </div>
     </div>

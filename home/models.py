@@ -93,6 +93,8 @@ class Student(models.Model):
     major = models.ForeignKey(Major, on_delete=models.CASCADE)
     lecturer = models.ForeignKey(Lecturer, on_delete=models.CASCADE)
     year = models.IntegerField()
+    state = models.CharField(max_length=20, default="재학")
+
     def __str__(self):
         return self.name + " / " + str(self.student_id)
 
@@ -159,3 +161,6 @@ class User(AbstractUser):
     student = models.ForeignKey(Student, on_delete=models.CASCADE, null=True, blank=True)
 
 
+class WishClass(models.Model):
+    classInfo = models.ForeignKey(Class, on_delete=models.CASCADE)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)

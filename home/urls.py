@@ -13,10 +13,13 @@ urlpatterns = [
     path('lectures/<int:class_id>/', views.enroll, name='enroll'),  # 강의 정보 및 신청
 
     path('mylectures/', views.mylectures, name='mylectures'),  # 신청한 강의 확인
+    path('wishlist/', views.wishlist, name='wishlist'),  # 신청한 강의 확인
+    path('wishlist/<int:class_id>/', views.wishEnroll, name='wishEnroll'),
+
     path('timetable/', views.home, name='timetable'),  # 시간표 확인
     path('cancel/<int:class_id>/', views.cancel, name='cancel'),  # 강의 취소 post method 만 허용
 
-    path('admin/statistics/', views.home, name='statistics'), # 분석 정보 제공
+    path('admin/statistics/', views.statistics, name='statistics'), # 분석 정보 제공
     path('admin/timetable/<int:student_id>/', views.home, name='admin/timetable'),  # 분석 정보 제공
 
 ]

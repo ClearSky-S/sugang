@@ -43,8 +43,10 @@
         {% if user.is_authenticated %}
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav">
-                <a href="/lectures" class="nav-item nav-link active">수강 편람</a>
-                <a href="/mylectures" class="nav-item nav-link active">신청 목록</a>
+                <a href="/lectures/" class="nav-item nav-link active">수강 편람</a>
+                <a href="/mylectures/" class="nav-item nav-link active">신청 목록</a>
+                <a href="/wishlist/" class="nav-item nav-link active">희망 목록</a>
+                <a href="/timetable/" class="nav-item nav-link active">시간표</a>
             </div>
             <div class="navbar-nav ms-auto">
                 <a href="/user" class="nav-item nav-link active">{{ user.first_name }}</a>

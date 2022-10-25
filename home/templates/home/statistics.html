@@ -1,0 +1,39 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h2 class="mt-3">통계</h2>
+                <hr/>
+                <div>
+                    <table class="table border">
+                        <thead>
+                        <tr>
+                            <th>순위</th>
+                            <th>강의명</th>
+                            <th>평균</th>
+                            <th>전체 - 강의</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for course in courseList %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ course.course.name }}</td>
+                                <td>{{ course.avgGrade }}</td>
+                                <td>{{ course.diff }}</td>
+
+                            </tr>
+                        {% endfor %}
+
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
