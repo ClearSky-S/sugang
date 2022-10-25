@@ -3,6 +3,19 @@ from django.http import HttpResponse
 from django.urls import reverse
 from .models import *
 from django.core.paginator import Paginator
+from django.db.models import Q
+
+
+def numberToWeekday(num):
+    weekdayDict = {
+        1: "월",
+        2: "화",
+        3: "수",
+        4: "목",
+        5: "금",
+        6: "토",
+    }
+    return weekdayDict[num]+"요일"
 
 
 def home(request):
@@ -18,7 +31,6 @@ def home(request):
 
 
 def lectures(request):
-    # 할 일: 검색 필터 기능 추가
     # a = Student.objects.all()[0]
     # print(a)
     # b = a.class_set.all()
@@ -28,27 +40,113 @@ def lectures(request):
     if not request.user.is_authenticated:
         return redirect(reverse('login'))
 
+    kw = request.GET.get('kw', '')  # 검색어
     page = request.GET.get('page', '1')  # 페이지
-    classInfoList = Class.objects.all()
+    classInfoList = Class.objects.filter(opened=2022).order_by('class_id')
+    if(kw):
+        try:
+            int(kw)
+            classInfoList = classInfoList.filter(
+                Q(class_id=kw) |
+                Q(course=kw) |
+                Q(course__name__icontains=kw) |
+                Q(lecturer__name=kw)
+
+            ).distinct()
+        except:
+            classInfoList = classInfoList.filter(
+                Q(course=kw) |
+                Q(course__name__icontains=kw) |
+                Q(lecturer__name=kw)
+            ).distinct()
+
+
     paginator = Paginator(classInfoList, 30)  # 페이지당 30개씩 보여주기
     page_obj = paginator.get_page(page)
 
     context = {
-        "classInfoList": page_obj
+        "classInfoList": page_obj,
+        "kw": kw,
+        "page": page,
     }
     return render(request, 'home/lectures.html', context)
 
 
-def lectureDetail(request, lecture_id):
+
+def enroll(request, class_id):
     # 할 일: 강의 상세 정보 보기, 강의 신청 버튼
     if request.user.is_superuser:
         return redirect('/admin')
     if not request.user.is_authenticated:
         return redirect(reverse('login'))
 
-    classInfo = get_object_or_404(Class, pk=lecture_id)
-    # classInfo = Student.objects.get(pk=request.user.student_id).class_set.get(pk=lecture_id)
+    classInfo = get_object_or_404(Class, pk=class_id)
+    try:
+        isEnrolled = classInfo.enrolled.filter(student_id=request.user.student.student_id)[0]
+        isEnrolled = True
+    except:
+        isEnrolled = False
+    errorMessage = ""
+    if request.method == 'POST':
+
+        # B0 가 넘는지 확인
+        isOverB0 = False
+        credits = Credits.objects.filter(student=request.user.student, course=classInfo.course)
+        for credit in credits:
+            if credit.grade=="B0":
+                isOverB0 = True
+                break
+            if credit.grade=="B+":
+                isOverB0 = True
+                break
+            if credit.grade=="A0":
+                isOverB0 = True
+                break
+            if credit.grade=="A+":
+                isOverB0 = True
+                break
+        isMaxPerson = classInfo.enrolled.count() >= classInfo.person_max
+
+        isSameTime = False
+
+        isOverMaxCredit = False
+        if isEnrolled:
+            errorMessage = "이미 신청한 강의입니다."
+        elif isOverB0:
+            errorMessage = "이전 성적이 B0 이상으로 신청할 수 없습니다."
+        elif isMaxPerson:
+            errorMessage = "정원이 가득 찼습니다."
+        elif isSameTime:
+            # 해야 함
+            errorMessage = "이미 같은 시간대의 다른 강의가 있습니다."
+        elif isOverMaxCredit:
+            # 해야 함
+            errorMessage = "최대 학점 제한인 18학점을 초과했습니다."
+        else:
+            classInfo.enrolled.add(request.user.student)
+            return redirect(reverse('mylectures'))
+
+    timeList = []
+    for element in classInfo.time_set.all():
+        d = dict()
+        d["day"] = numberToWeekday(element.day)
+        d["begin"] = element.begin
+        d["end"] = element.end
+        timeList.append(d)
     context = {
-        "classInfo": classInfo
+        "classInfo": classInfo,
+        "timeList": timeList,
+        "errorMessage": errorMessage,
+        "isEnrolled":isEnrolled,
     }
     return render(request, 'home/lectureDetail.html', context)
+
+def cancel(request, class_id):
+    classInfo = get_object_or_404(Class, pk=class_id)
+    try:
+        enrolled = classInfo.enrolled.filter(student_id=request.user.student.student_id)[0]
+    except:
+        return redirect(reverse('mylectures'))
+
+    classInfo.enrolled.remove(enrolled)
+    return redirect(reverse('mylectures'))

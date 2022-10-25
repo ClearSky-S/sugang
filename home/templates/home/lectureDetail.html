@@ -2,6 +2,78 @@
 {% load static %}
 {% block content %}
 
-{{classInfo}}
+    <div class="container">
+        <div class="row justify-content-center my-3">
+            <div class="col-md-6">
+                <div>
+                    <table class="table border">
+                        <tbody>
+                        <tr>
+                            <td>수업번호</td>
+                            <td>{{ classInfo.class_id }}</td>
+                        </tr>
+                        <tr>
+                            <td>학수번호</td>
+                            <td>{{ classInfo.course.course_id }}</td>
+                        </tr>
+                        <tr>
+                            <td>강의명</td>
+                            <td>{{ classInfo.course.name }}</td>
+                        </tr>
+                        <tr>
+                            <td>전공</td>
+                            <td>{{ classInfo.major }}</td>
+                        </tr>
+                        <tr>
+                            <td>학년</td>
+                            <td>{{ classInfo.year }}</td>
+                        </tr>
+                        <tr>
+                            <td>학점</td>
+                            <td>{{ classInfo.course.credit }}</td>
+                        </tr>
+                        {% for t in timeList %}
+                            <tr>
+                                <td>시간</td>
+                                <td>{{ t.day }} {{ t.begin | time:"H:i" }}~{{ t.end | time:"H:i" }}</td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>신청인원</td>
+                            <td>{{ classInfo.enrolled.count }}</td>
+                        </tr>
+                        <tr>
+                            <td>수강정원</td>
+                            <td>{{ classInfo.person_max }}</td>
+                        </tr>
+                        <tr>
+                            <td>강의실</td>
+                            <td>{{ classInfo.room }}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                {% if isEnrolled %}
+                    <form method="POST" action="/cancel/{{classInfo.class_id}}/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">취소</button>
+                    </form>
+                {% else %}
+                    <form method="POST" action="/lectures/{{classInfo.class_id}}/">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary">신청</button>
+                    </form>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block script %}
+    <script type="text/javascript">
+        {% if errorMessage %}
+            alert("{{ errorMessage }}")
+        {% endif %}
+    </script>
 
 {% endblock %}
