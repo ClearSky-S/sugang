@@ -5,7 +5,7 @@ from .models import *
 from django.core.paginator import Paginator
 from django.db.models import Q
 
-
+# 숫자를 요일로 바꿔주는 함수
 def numberToWeekday(num):
     weekdayDict = {
         1: "월",
@@ -18,6 +18,7 @@ def numberToWeekday(num):
     return weekdayDict[num]+"요일"
 
 
+# 메인페이지, 수강신청 관련 공지를 보여줌
 def home(request):
     if request.user.is_superuser:
         return redirect('/admin')
@@ -29,12 +30,8 @@ def home(request):
     }
     return render(request, 'home/home.html', context)
 
-
+# 강의 목록을 보여줌
 def lectures(request):
-    # a = Student.objects.all()[0]
-    # print(a)
-    # b = a.class_set.all()
-    # print(b)
     if request.user.is_superuser:
         return redirect('/admin')
     if not request.user.is_authenticated:
@@ -72,9 +69,9 @@ def lectures(request):
     return render(request, 'home/lectures.html', context)
 
 
-
+# GET 요청 시 강의 정보를 보여줌
+# POST 요청 시 validation 후 강의를 신청함
 def enroll(request, class_id):
-    # 할 일: 강의 상세 정보 보기, 강의 신청 버튼
     if request.user.is_superuser:
         return redirect('/admin')
     if not request.user.is_authenticated:
@@ -141,6 +138,8 @@ def enroll(request, class_id):
     }
     return render(request, 'home/lectureDetail.html', context)
 
+
+# 강의 취소 POST 요청
 def cancel(request, class_id):
     classInfo = get_object_or_404(Class, pk=class_id)
     try:
