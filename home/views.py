@@ -149,3 +149,11 @@ def cancel(request, class_id):
 
     classInfo.enrolled.remove(enrolled)
     return redirect(reverse('mylectures'))
+
+def mylectures(request):
+    classInfoList = Class.objects.filter(enrolled=request.user.student).order_by('class_id')
+    context = {
+        "classInfoList": classInfoList,
+
+    }
+    return render(request, 'home/mylectures.html', context)

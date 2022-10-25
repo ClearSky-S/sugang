@@ -12,14 +12,11 @@ urlpatterns = [
     path('lectures/', views.lectures, name='lectures'),  # 강의 목록 조회 및 수강신청
     path('lectures/<int:class_id>/', views.enroll, name='enroll'),  # 강의 정보 및 신청
 
-    path('mylectures/', views.home, name='mylectures'),  # 신청한 강의 확인
+    path('mylectures/', views.mylectures, name='mylectures'),  # 신청한 강의 확인
     path('timetable/', views.home, name='timetable'),  # 시간표 확인
     path('cancel/<int:class_id>/', views.cancel, name='cancel'),  # 강의 취소 post method 만 허용
 
-    path('statistics/', views.home, name='statistics'), # 분석 정보 제공
-
-    path('chat/', views.home, name='chat'),  # 추가기능: AJAX를 통한 실시간 채팅 기능
-
-
+    path('admin/statistics/', views.home, name='statistics'), # 분석 정보 제공
+    path('admin/timetable/<int:student_id>/', views.home, name='admin/timetable'),  # 분석 정보 제공
 
 ]

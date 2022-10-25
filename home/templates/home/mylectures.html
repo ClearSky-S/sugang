@@ -1,0 +1,38 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th>수업번호</th>
+                        <th>학수번호</th>
+                        <th>강좌</th>
+                        <th>강의자</th>
+                        <th>상세정보</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for classInfo in classInfoList %}
+                        <tr>
+                            <td>{{ classInfo.class_id }}</td>
+                            <td>{{ classInfo.course_id }}</td>
+                            <td>{{ classInfo.course.name }}</td>
+                            <td>{{ classInfo.lecturer }}</td>
+                            <td class="py-1"><a class="btn btn-primary my-0 py-0 px-1"
+                                                href="/lectures/{{ classInfo.class_id }}">보기</a></td>
+                        </tr>
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+{% endblock %}
+
