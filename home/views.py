@@ -10,7 +10,9 @@ from datetime import datetime
 # 숫자를 요일로 바꿔주는 함수
 def numberToWeekday(num):
     if num==None:
-        return "X"
+        return "온라인"
+    if num==6:
+        return "온라인"
     weekdayDict = {
         1: "월",
         2: "화",
@@ -266,7 +268,7 @@ def timetable(request, student_id = None):
     timetableList = Time.objects.filter(classInfo__enrolled__student_id=student_id)
     timetableList2 = [[] for i in range(0,6)]
     for element in timetableList:
-        timetableList2[element.day].append(element)
+        timetableList2[element.day-1].append(element)
     for day in timetableList2:
         day.sort(key= lambda x: x.begin)
     timetableList3 = []
