@@ -152,10 +152,8 @@ def enroll(request, class_id):
         elif isMaxPerson:
             errorMessage = "정원이 가득 찼습니다."
         elif isSameTime:
-            # 해야 함
             errorMessage = "이미 같은 시간대의 다른 강의가 있습니다."
         elif isOverMaxCredit:
-            # 해야 함
             errorMessage = "최대 학점 제한인 18학점을 초과했습니다."
         else:
             classInfo.enrolled.add(request.user.student)
@@ -200,7 +198,7 @@ def mylectures(request):
     return render(request, 'home/mylectures.html', context)
 
 
-
+# 희망 강의 목록
 def wishlist(request):
     classInfoList = []
     for wishClass in WishClass.objects.filter(student=request.user.student):
@@ -211,6 +209,8 @@ def wishlist(request):
 
     }
     return render(request, 'home/mylectures.html', context)
+
+# 희망 강의 신청
 def wishEnroll(request, class_id):
     if request.method=="POST":
         wishClassList = WishClass.objects.filter(classInfo__class_id=class_id, student=request.user.student)
@@ -236,6 +236,7 @@ gradeDict={
     "F": 0,
 }
 
+# 통계 기능
 def statistics(request):
     if not request.user.is_superuser:
         return redirect(reverse("home"))
@@ -262,6 +263,7 @@ def statistics(request):
     }
     return render(request, 'home/statistics.html', context)
 
+# 시간표
 def timetable(request, student_id = None):
     if not request.user.is_superuser:
         student_id = request.user.student.student_id
