@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% block content %}
+    <div class="container">
+        <div class="row justify-content-center my-3">
+            <div class="col-md-6">
+                <div>
+                    <table class="table border">
+                        <thead>
+                        <tr>
+                            <th>시간</th>
+                            <th>과목</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for time in timetableList %}
+                            <tr>
+                            <td>{{ time.day }} {{ time.time.begin | time:"H:i" }}~{{ time.time.end | time:"H:i" }}  </td>
+                            <td>{{ time.time.classInfo }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

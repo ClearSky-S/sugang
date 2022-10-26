@@ -197,6 +197,8 @@ def mylectures(request):
     }
     return render(request, 'home/mylectures.html', context)
 
+
+
 def wishlist(request):
     classInfoList = []
     for wishClass in WishClass.objects.filter(student=request.user.student):
@@ -257,3 +259,27 @@ def statistics(request):
         "total_avg": total_avg,
     }
     return render(request, 'home/statistics.html', context)
+
+def timetable(request, student_id = None):
+    if not request.user.is_superuser:
+        student_id = request.user.student.student_id
+    timetableList = Time.objects.filter(classInfo__enrolled__student_id=student_id)
+    timetableList2 = [[] for i in range(0,6)]
+    for element in timetableList:
+        timetableList2[element.day].append(element)
+    for day in timetableList2:
+        day.sort(key= lambda x: x.begin)
+    timetableList3 = []
+    for day in timetableList2:
+        for element in day:
+            d = {
+                "day": numberToWeekday(element.day),
+                "time": element
+            }
+            timetableList3.append(d)
+
+
+    context={
+        "timetableList": timetableList3
+    }
+    return render(request, 'home/timetable.html', context)
