@@ -140,7 +140,7 @@ def enroll(request, class_id):
             sumCredit += classInfo2.course.credit
         sumCredit += classInfo.course.credit
         print(sumCredit)
-        if sumCredit >= 18:
+        if sumCredit > 18:
             isOverMaxCredit = True
 
         if isEnrolled:
