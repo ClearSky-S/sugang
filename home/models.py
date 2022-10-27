@@ -1,3 +1,4 @@
+from django.core.exceptions import ValidationError
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 # Create your models here.
@@ -120,6 +121,9 @@ class Class(models.Model):
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     def __str__(self):
         return str(self.course) + " / " + str(self.lecturer)
+    def clean(self):
+        if self.person_max > self.room.occupancy:
+            raise ValidationError("수강 정원이 강의실의 최대 수용인원보다 많습니다.")
 
 # ----------- Tier 4 ---------------
 # Tier 4 Model: 성적, 수업시간, +auth_user(장고 기본 auth DB 이용)
